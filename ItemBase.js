@@ -13,15 +13,17 @@ export class ItemBase {
     get anoPublicacao() { return this.#anoPublicacao; }
 
     set anoPublicacao(anoPublicacao) {
-        if(anoPublicacao < 1000 || anoPublicacao > 2026){
-            console.log("Bloqueado: O ano da publicação não pode ser menor que 1000!");
-            console.log("Bloqueado: O ano da publicação não pode ser maior que 2026!");
-        }
-        this.#anoPublicacao = anoPublicacao;
+      if (typeof anoPublicacao !== 'number' || isNaN(anoPublicacao)){
+        throw new Error("ERR_TIPO_ANO_INVALIDO");
+      }
+
+       if (anoPublicacao < 1000 || anoPublicacao > 2026){
+        throw new Error("ERR_ANO_FORA_DO_LIMITE");
+    }
     }
 
-
-    calcularMulta(diasAtraso){
-        throw new Error("Erro: A classe filha precisa implementar o cálculo de multa!");
-    }
 }
+
+    //calcularMulta(diasAtraso){
+        //throw new Error("Erro: A classe filha precisa implementar o cálculo de multa!");
+    //}
